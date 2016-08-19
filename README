@@ -22,7 +22,7 @@ Core files of vending
   vending.vdmsl (VDM-SL model)
   vending.pml (PROMELA model)
   vending_type.c
-  vending_op.c (above line 230: support functions; below line 230: main functions)
+  vending_op.c (above line 267: support functions; below line 267: main functions)
   log_vending (checking result of vending with some intermediate detail which may help understanding the checking process better)
 
 The above C files contain some redundant code either not being used anymore or for testing/debugging/confirmation and thus look nasty.
