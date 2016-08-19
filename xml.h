@@ -1,0 +1,1 @@
+int dump_xml (struct AST *ast);

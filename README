@@ -1,0 +1,61 @@
+This is a brief instruction including two parts: core files to look, and how to compile and run the code, for the response to reviews of ISSRE2015, paper 149.
+
+Part 1: Core files to look
+
+Core files of SIMPLE
+  simple.vdmsl (VDM-SL model)
+  simple.pml (PROMELA model)
+  simple_type.c
+  simple_op.c (above line 230: support functions; below line 230: main functions)
+  log_simple_w27m10^6 (checking result of SIMPLE with some intermediate detail which may help understanding the checking process better)
+
+Core files of SAFER
+  folder ./SAFERSL/ (VDM-SL model, see safer.vdmsl, hcm.vdmsl, and auxilary.vdmsl)
+    PS: The original VDM-SL model can be downloaded from: http://overturetool.org/download/examples/VDMSL/
+  safer.pml (PROMELA model)
+  safer_type.c
+  safer_op.c (above line 272: support functions; below line 272: main functions)
+  log_simple_w27m10^6 (checking result of SAFER with some intermediate detail which may help understanding the checking process better)
+
+Core files of vending
+  vending.vdmsl (VDM-SL model)
+  vending.pml (PROMELA model)
+  vending_type.c
+  vending_op.c (above line 230: support functions; below line 230: main functions)
+  log_vending (checking result of vending with some intermediate detail which may help understanding the checking process better)
+
+The above C files contain some redundant code either not being used anymore or for testing/debugging/confirmation and thus look nasty.
+The code are kept in the status at the due date of submission.
+
+Part 2: How to compile and run the code (assuming ubuntu 14.04 32bit platform)
+
+1. Preparation:
+Download VDMJ and SPIN
+  VDMJ (vdmj-3.0.1.jar): https://github.com/nickbattle/vdmj/releases 
+  SPIN (linux32 binary): http://spinroot.com/spin/Bin/
+  Put the two files in same folder (i.e. issre2015-149)
+Create FIFO pipes
+  %> mkpipe fifo_cmd
+  %> mkpipe fifo_ret
+Compile C programs which establish VDMJ process and link standard I/O to pipes
+  %> gcc -o fifo_simple fifo_simple.c
+  %> gcc -o fifo_safer fifo_safer.c
+  %> gcc -o fifo_vending fifo_vending.c
+
+2. Compile and run (to get same/close results as the paper reported)
+simple
+  %> ./spin -a simple.pml
+  %> make
+  %> ./fifo_simple &
+  %> ./pan -m1000000 > out_simple
+safer
+  %> ./spin -a safer.pml
+  %> make
+  %> ./fifo_safer &
+  %> ./pan -w32 > out_safer
+safer
+  %> ./spin -a vending.pml
+  %> make
+  %> ./fifo_vending &
+  %> ./pan > out_vending
+PS: fifo_simple, fifo_safer, and fifo_vending have to be killed manually after checking finished.

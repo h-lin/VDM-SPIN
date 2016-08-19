@@ -1,0 +1,11 @@
+dlmodule GUI
+
+  exports
+    operations
+      GetCommand : () ==> seq of seq of char;
+      GUI_Init_Tcl : () ==>()
+
+  uselib
+    "my_gui.so"
+
+end GUI

@@ -1,0 +1,36 @@
+module SIMPLE
+
+exports all
+
+definitions
+
+types
+
+  myNat = nat
+  inv n == n in set {0,...,9};
+
+state S of
+  pool : set of myNat
+  init s == s = mk_S({0,4,9})
+  inv s == s <> mk_S({2,8}) /* two danger numbers to be put together without other numbers */
+end
+
+operations
+
+  putintoS : set of myNat ==> set of myNat
+  putintoS(a) == ( pool := pool union a; return pool )
+  pre card a <= 2 and card a > 0
+  post card pool >= card pool~;
+  
+  takefromS : set of myNat ==> set of myNat
+  takefromS(a) == ( pool := pool \ a; return pool )
+  pre card a <= 2 and card a > 0
+  post card pool <= card pool~;
+
+  get_state : () ==> S
+  get_state() == ( return S );
+
+  set_state : S ==> ()
+  set_state(a) == ( pool := a.pool );
+
+end SIMPLE

@@ -1,0 +1,78 @@
+warning: for p.o. reduction to be valid the never claim must be stutter-invariant
+(never claims generated from LTL formulae are stutter-invariant)
+read: 1234
+
+Parsed 1 module in 0.167 secs. No syntax errors
+Type checked 1 module in 0.014 secs. No type errors
+Initialized 1 module in 0.028 secs. 
+Interpreter started
+> 
+read: Cleared all coverage information
+Global context initialized
+> 
+read: = mk_S({0, 4, 9})
+Executed in 0.01 secs. 
+> 
+<<<report number of execution: 10000>>>
+write: print SIMPLE`set_state(mk_S({0,1,3,5,6,8,9}))
+read: = ()
+Executed in 0.0 secs. 
+> 
+write: print SIMPLE`putintoS({4,7})
+read: = {0, 1, 3, 4, 5, 6, 7, 8, 9}
+Executed in 0.001 secs. 
+> 
+read: = mk_S({0, 1, 3, 4, 5, 6, 7, 8, 9})
+Executed in 0.0 secs. 
+> 
+<<<report number of execution: 20000>>>
+write: print SIMPLE`set_state(mk_S({1,2,4,7,9}))
+read: = ()
+Executed in 0.0 secs. 
+> 
+write: print SIMPLE`putintoS({5,8})
+read: = {1, 2, 4, 5, 7, 8, 9}
+Executed in 0.0 secs. 
+> 
+read: = mk_S({1, 2, 4, 5, 7, 8, 9})
+Executed in 0.0 secs. 
+> 
+ERROR returned by VDMJ interpreter...
+read: Error 4131: State invariant violated: inv_S in 'SIMPLE' (simple.vdmsl) at line 26:21
+Stopped in 'SIMPLE' (simple.vdmsl) at line 26:21
+26:    takefromS(a) == ( pool := pool \ a; return pool )
+[MainThread-69053]> 
+pan:1: assertion violated  !((VDM_Error==1)) (at depth 406680)
+pan: wrote simple.pml.trail
+
+(Spin Version 6.4.3 -- 16 December 2014)
+Warning: Search not completed
+	+ Partial Order Reduction
+
+Bit statespace search for:
+	never claim         	+ (never_0)
+	assertion violations	+ (if within scope of claim)
+	cycle checks       	- (disabled by -DSAFETY)
+	invalid end states	- (disabled by never claim)
+
+State-vector 32 byte, depth reached 406687, errors: 1
+   545237 states, stored
+    52645 states, matched
+   597882 transitions (= stored+matched)
+        0 atomic steps
+
+hash factor: 246.164 (best if > 100.)
+
+bits set per state: 3 (-k3)
+
+Stats on memory usage (in Megabytes):
+   18.719	equivalent memory usage for states (stored*(State-vector + overhead))
+   16.000	memory used for hash array (-w27)
+   16.000	memory used for bit stack
+   38.147	memory used for DFS stack (-m1000000)
+   70.733	total actual memory usage
+
+
+
+pan: elapsed time 33.5 seconds
+pan: rate  16266.02 states/second
