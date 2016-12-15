@@ -32,12 +32,12 @@ Part 2: How to compile and run the code (assuming ubuntu 14.04 32bit platform)
 
 1. Preparation:
 Download VDMJ and SPIN
-  VDMJ (vdmj-3.0.1.jar): https://github.com/nickbattle/vdmj/releases 
+  VDMJ (vdmj-3.0.1.jar): https://github.com/nickbattle/vdmj/releases (*)
   SPIN (linux32 binary): http://spinroot.com/spin/Bin/
-  Put the two files in same folder (i.e. issre2015-149)
+  Put the two files in same folder
 Create FIFO pipes
-  %> mkpipe fifo_cmd
-  %> mkpipe fifo_ret
+  %> mkfifo fifo_cmd
+  %> mkfifo fifo_ret
 Compile C programs which establish VDMJ process and link standard I/O to pipes
   %> gcc -o fifo_simple fifo_simple.c
   %> gcc -o fifo_safer fifo_safer.c
@@ -54,9 +54,11 @@ safer
   %> make
   %> ./fifo_safer &
   %> ./pan -w32 > out_safer
-safer
+vending machine
   %> ./spin -a vending.pml
   %> make
   %> ./fifo_vending &
-  %> ./pan > out_vending
+  %> ./pan -m100000 > out_vending
 PS: fifo_simple, fifo_safer, and fifo_vending have to be killed manually after checking finished.
+(*) The experiments are conducted with vdmj-3.0.1.jar.
+    It is confirmed that newer versions of VDMJ may fail to load the vending machine model.
